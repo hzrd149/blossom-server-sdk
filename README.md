@@ -2,6 +2,28 @@
 
 A collection of classes to for building blossom servers
 
+## Metadata storage
+
+all metadata storage classes implement the `IBlobMetadataStore` interface
+
+```ts
+interface IBlobMetadataStore {
+  // blobs
+  hasBlob(sha256: string): boolean | Promise<boolean>;
+  getBlob(sha256: string): BlobMetadata | Promise<BlobMetadata>;
+  addBlob(
+    data: Omit<BlobMetadata, "url">
+  ): BlobMetadata | Promise<BlobMetadata>;
+  removeBlob(sha256: string): boolean | Promise<boolean>;
+
+  // blob owners
+  hasOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
+  addOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
+  removeOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
+  getOwnerBlobs(pubkey: string): BlobMetadata[] | Promise<BlobMetadata[]>;
+}
+```
+
 ## Storage
 
 all storage classes implement the `IBlobStorage` interface
@@ -9,11 +31,11 @@ all storage classes implement the `IBlobStorage` interface
 ```ts
 interface IBlobStorage {
   setup(): Promise<void>;
-  hasBlob(hash: string): Promise<boolean>;
-  writeBlob(hash: string, stream: Readable, type?: string): Promise<void>;
+  hasBlob(sha256: string): Promise<boolean>;
+  writeBlob(sha256: string, stream: Readable, type?: string): Promise<void>;
   getBlobSize(sha256: string): Promise<number>;
-  readBlob(hash: string): Promise<Readable>;
-  removeBlob(hash: string): Promise<void>;
+  readBlob(sha256: string): Promise<Readable>;
+  removeBlob(sha256: string): Promise<void>;
 }
 ```
 
@@ -22,7 +44,7 @@ interface IBlobStorage {
 A class that uses the built-in `fs` module in node to store blobs in the file system
 
 ```js
-import LocalStorage from "blossom-server-sdk/storage/local";
+import { LocalStorage } from "blossom-server-sdk/storage/local";
 
 const storage = new LocalStorage("./data");
 await storage.setup();
@@ -43,7 +65,7 @@ https.get(new URL(sha256, "https://cdn.satellite.earth"), async (res) => {
 A storage class that uses `minio` to store blobs in a `s3` compatible API
 
 ```js
-import S3Storage from "blossom-server-sdk/storage/s3";
+import { S3Storage } from "blossom-server-sdk/storage/s3";
 
 const storage = new S3Storage("./data");
 await storage.setup();

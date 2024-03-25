@@ -6,7 +6,7 @@ import { Readable } from "stream";
 import { IBlobStorage } from "./interface.js";
 import { logger } from "../logger.js";
 
-export default class LocalStorage implements IBlobStorage {
+export class LocalStorage implements IBlobStorage {
   log = logger.extend("storage:local");
   dir: string;
   files: string[] = [];
@@ -31,13 +31,13 @@ export default class LocalStorage implements IBlobStorage {
     return fs.createReadStream(path.join(this.dir, file));
   }
   writeBlob(
-    hash: string,
+    sha256: string,
     stream: Readable,
     type?: string | undefined
   ): Promise<void> {
     return new Promise((res) => {
       const ext = type ? mime.getExtension(type) : null;
-      const filename = hash + (ext ? "." + ext : "");
+      const filename = sha256 + (ext ? "." + ext : "");
       const filepath = path.join(this.dir, filename);
       stream.pipe(fs.createWriteStream(filepath));
       stream.on("end", async () => {
@@ -53,8 +53,8 @@ export default class LocalStorage implements IBlobStorage {
     const stats = await pfs.stat(filepath);
     return stats.size;
   }
-  async removeBlob(hash: string): Promise<void> {
-    const file = this.files.find((f) => f.startsWith(hash));
+  async removeBlob(sha256: string): Promise<void> {
+    const file = this.files.find((f) => f.startsWith(sha256));
     if (!file) throw new Error("Missing blob");
 
     await pfs.rm(path.join(this.dir, file));

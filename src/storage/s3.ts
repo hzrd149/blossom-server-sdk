@@ -4,7 +4,7 @@ import mime from "mime";
 import { logger } from "../logger.js";
 import { IBlobStorage } from "./interface.js";
 
-export default class S3Storage implements IBlobStorage {
+export class S3Storage implements IBlobStorage {
   log = logger.extend("storage:s3");
   client: Client;
   bucket: string;
@@ -49,20 +49,20 @@ export default class S3Storage implements IBlobStorage {
   private getBlobObject(sha256: string) {
     return this.objects.find((obj) => obj.name?.startsWith(sha256));
   }
-  private createObjectName(hash: string, type?: string) {
+  private createObjectName(sha256: string, type?: string) {
     const ext = type ? mime.getExtension(type) : null;
-    return hash + (ext ? "." + ext : "");
+    return sha256 + (ext ? "." + ext : "");
   }
 
   async hasBlob(sha256: string): Promise<boolean> {
     return !!this.getBlobObject(sha256);
   }
   async writeBlob(
-    hash: string,
+    sha256: string,
     stream: Readable,
     type?: string | undefined
   ): Promise<void> {
-    const name = this.createObjectName(hash, type);
+    const name = this.createObjectName(sha256, type);
     let size = 0;
     await this.client.putObject(this.bucket, name, stream, {
       "x-amz-acl": "public-read",

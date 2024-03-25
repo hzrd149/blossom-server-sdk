@@ -1,6 +1,6 @@
 {
   "name": "blossom-server-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,6 +24,14 @@
     "./storage/s3": {
       "default": "./lib/storage/s3.js",
       "types": "./lib/storage/s3.d.ts"
+    },
+    "./metadata": {
+      "default": "./lib/metadata/index.js",
+      "types": "./lib/metadata/index.d.ts"
+    },
+    "./metadata/sqlite": {
+      "default": "./lib/metadata/sqlite.js",
+      "types": "./lib/metadata/sqlite.d.ts"
     }
   },
   "scripts": {
@@ -32,12 +40,14 @@
     "format": "prettier -w ."
   },
   "dependencies": {
+    "better-sqlite3": "^9.4.3",
     "debug": "^4.3.4",
     "mime": "^4.0.1",
     "minio": "^7.1.3",
     "ws": "^8.16.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
     "@types/debug": "^4.1.12",
     "@types/node": "^20.11.30",
     "typescript": "^5.4.3"
