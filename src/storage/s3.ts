@@ -81,6 +81,13 @@ export class S3Storage implements IBlobStorage {
     if (!object) throw new Error("Object not found " + sha256);
     return object.size;
   }
+  getBlobType(
+    sha256: string
+  ): string | Promise<string | undefined> | undefined {
+    const object = this.getBlobObject(sha256);
+    if (!object) throw new Error("Missing blob");
+    return mime.getType(object.name) ?? undefined;
+  }
   readBlob(sha256: string): Promise<Readable> {
     const object = this.getBlobObject(sha256);
     if (!object) throw new Error("Object not found " + sha256);

@@ -33,7 +33,8 @@ interface IBlobStorage {
   setup(): Promise<void>;
   hasBlob(sha256: string): Promise<boolean>;
   writeBlob(sha256: string, stream: Readable, type?: string): Promise<void>;
-  getBlobSize(sha256: string): Promise<number>;
+  getBlobSize(sha256: string): number | Promise<number>;
+  getBlobType(sha256: string): string | undefined | Promise<string | undefined>;
   readBlob(sha256: string): Promise<Readable>;
   removeBlob(sha256: string): Promise<void>;
 }

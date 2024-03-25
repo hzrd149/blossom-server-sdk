@@ -53,6 +53,13 @@ export class LocalStorage implements IBlobStorage {
     const stats = await pfs.stat(filepath);
     return stats.size;
   }
+  getBlobType(
+    sha256: string
+  ): string | Promise<string | undefined> | undefined {
+    const filename = this.getBlobFilename(sha256);
+    if (!filename) throw new Error("Missing blob");
+    return mime.getType(filename) ?? undefined;
+  }
   async removeBlob(sha256: string): Promise<void> {
     const file = this.files.find((f) => f.startsWith(sha256));
     if (!file) throw new Error("Missing blob");
