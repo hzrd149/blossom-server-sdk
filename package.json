@@ -1,0 +1,45 @@
+{
+  "name": "blossom-server-sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./storage": {
+      "default": "./lib/storage/index.js",
+      "types": "./lib/storage/index.d.ts"
+    },
+    "./storage/local": {
+      "default": "./lib/storage/local.js",
+      "types": "./lib/storage/local.d.ts"
+    },
+    "./storage/s3": {
+      "default": "./lib/storage/s3.js",
+      "types": "./lib/storage/s3.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "node src/index.js",
+    "build": "tsc",
+    "format": "prettier -w ."
+  },
+  "dependencies": {
+    "debug": "^4.3.4",
+    "mime": "^4.0.1",
+    "minio": "^7.1.3",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
+  }
+}
