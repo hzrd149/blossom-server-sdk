@@ -37,6 +37,7 @@
   "scripts": {
     "dev": "node src/index.js",
     "build": "tsc",
+    "prepare": "tsc",
     "format": "prettier -w ."
   },
   "dependencies": {
