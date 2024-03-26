@@ -105,11 +105,21 @@ export class BlossomSQLite implements IBlobMetadataStore {
     return result.changes > 0;
   }
 
-  getOwnerBlobs(pubkey: string, _opts?: { since?: number; until?: number }) {
+  getOwnerBlobs(
+    pubkey: string,
+    _opts?: { since?: number; until?: number }
+  ): BlobMetadata[] | Promise<BlobMetadata[]> {
     return this.db
       .prepare(
         `SELECT blobs.* FROM owners LEFT JOIN blobs ON blobs.sha256 = owners.blob WHERE owners.pubkey = ?`
       )
       .all(pubkey) as BlobMetadata[];
+  }
+  getOrphanedBlobs(): BlobMetadata[] | Promise<BlobMetadata[]> {
+    return this.db
+      .prepare(
+        `SELECT blobs.* FROM blobs LEFT JOIN owners ON blobs.sha256 = owners.blob WHERE owners.pubkey IS NULL`
+      )
+      .all() as BlobMetadata[];
   }
 }

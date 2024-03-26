@@ -10,7 +10,7 @@ export interface IBlobMetadataStore {
   hasBlob(sha256: string): boolean | Promise<boolean>;
   getBlob(sha256: string): BlobMetadata | Promise<BlobMetadata>;
   addBlob(
-    data: Omit<BlobMetadata, "url">,
+    data: Omit<BlobMetadata, "url">
   ): BlobMetadata | Promise<BlobMetadata>;
   removeBlob(sha256: string): boolean | Promise<boolean>;
 
@@ -19,4 +19,5 @@ export interface IBlobMetadataStore {
   addOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
   removeOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
   getOwnerBlobs(pubkey: string): BlobMetadata[] | Promise<BlobMetadata[]>;
+  getOrphanedBlobs(): BlobMetadata[] | Promise<BlobMetadata[]>;
 }

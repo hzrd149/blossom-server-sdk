@@ -1,6 +1,7 @@
 import path from "node:path";
 import Database from "better-sqlite3";
 import { BlossomSQLite } from "./sqlite.js";
+import assert from "node:assert";
 
 const db = new Database(path.join("data", "sqlite.db"));
 
@@ -68,3 +69,9 @@ blobs.removeBlob(
 );
 console.log("Blobs", blobs.getAllBlobs());
 console.log("Owners", blobs.getAllOwners());
+
+const orphaned = await blobs.getOrphanedBlobs();
+assert.equal(
+  orphaned[0].sha256,
+  "b91dfd7565edb9382a5537b80bd5f24c6cbe9aee693abcdb7448098f1e8c608b"
+);
