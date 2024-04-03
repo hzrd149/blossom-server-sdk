@@ -15,6 +15,7 @@ export class LocalStorage implements IBlobStorage {
     this.dir = dir;
   }
   async setup(): Promise<void> {
+    await pfs.mkdir(this.dir, { recursive: true });
     this.files = await pfs.readdir(this.dir);
     this.log(`Found ${this.files.length} in ${this.dir}`);
   }

@@ -1,6 +1,6 @@
 {
   "name": "blossom-server-sdk",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,7 +35,6 @@
     }
   },
   "scripts": {
-    "dev": "node src/index.js",
     "build": "tsc",
     "prepare": "tsc",
     "format": "prettier -w ."
