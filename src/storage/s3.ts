@@ -10,6 +10,7 @@ export class S3Storage implements IBlobStorage {
   bucket: string;
   publicURL: string | undefined = undefined;
 
+  /** cached array of objects that are stored in the s3 bucket */
   objects: { name: string; size: number }[] = [];
 
   constructor(
