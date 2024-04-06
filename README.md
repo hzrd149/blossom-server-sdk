@@ -92,7 +92,7 @@ https.get(new URL(sha256, "https://cdn.satellite.earth"), async (res) => {
   const type = res.headers["content-type"];
 
   // write the blob to storage with the optional type
-  await blobs.storage.writeBlob(sha256, res, type);
+  await storage.writeBlob(sha256, res, type);
 });
 ```
 
@@ -114,6 +114,6 @@ https.get(new URL(sha256, "https://cdn.satellite.earth"), async (res) => {
   const type = res.headers["content-type"];
 
   // write the blob to s3 storage with the optional type
-  await blobs.storage.writeBlob(sha256, res, type);
+  await storage.writeBlob(sha256, res, type);
 });
 ```
