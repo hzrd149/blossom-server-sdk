@@ -2,6 +2,8 @@
 
 A collection of classes to for building blossom servers
 
+[Documentation](https://hzrd149.github.io/blossom-server-sdk/)
+
 ## Metadata storage
 
 all metadata storage classes implement the `IBlobMetadataStore` interface
@@ -29,7 +31,7 @@ interface IBlobMetadataStore {
 The `BlossomSQLite` class can be used to store blob metadata in a sqlite database
 
 ```js
-import { BlossomSQLite } from "blossom-server-sdk";
+import { BlossomSQLite } from "blossom-server-sdk/metadata/sqlite";
 
 const metadataStore = new BlossomSQLite("./data/mysql.db");
 

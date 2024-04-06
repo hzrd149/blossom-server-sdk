@@ -3,7 +3,7 @@ import Database from "better-sqlite3";
 import { BlossomSQLite } from "./sqlite.js";
 import assert from "node:assert";
 
-const db = new Database(path.join("data", "sqlite.db"));
+const db = new Database("data/sqlite.db");
 
 const blobs = new BlossomSQLite(db);
 
