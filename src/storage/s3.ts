@@ -17,7 +17,7 @@ export class S3Storage implements IBlobStorage {
     endpoint: string,
     accessKey: string,
     secretKey: string,
-    bucket: string
+    bucket: string,
   ) {
     this.client = new Client({
       endPoint: endpoint,
@@ -61,7 +61,7 @@ export class S3Storage implements IBlobStorage {
   async writeBlob(
     sha256: string,
     stream: Readable,
-    type?: string | undefined
+    type?: string | undefined,
   ): Promise<void> {
     const name = this.createObjectName(sha256, type);
     let size = 0;
@@ -83,7 +83,7 @@ export class S3Storage implements IBlobStorage {
     return object.size;
   }
   getBlobType(
-    sha256: string
+    sha256: string,
   ): string | Promise<string | undefined> | undefined {
     const object = this.getBlobObject(sha256);
     if (!object) throw new Error("Missing blob");

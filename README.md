@@ -14,7 +14,7 @@ interface IBlobMetadataStore {
   hasBlob(sha256: string): boolean | Promise<boolean>;
   getBlob(sha256: string): BlobMetadata | Promise<BlobMetadata>;
   addBlob(
-    data: Omit<BlobMetadata, "url">
+    data: Omit<BlobMetadata, "url">,
   ): BlobMetadata | Promise<BlobMetadata>;
   removeBlob(sha256: string): boolean | Promise<boolean>;
 
@@ -39,18 +39,18 @@ await metadataStore.addBlob({
   sha256: "b1674191a88ec5cdd733e4240a81803105dc412d6c6708d53ab94fc248f4f553",
   size: 184929,
   type: "application/pdf",
-  created: Math.floor(Date.now() / 1000),
+  uploaded: Math.floor(Date.now() / 1000),
 });
 
 await metadataStore.addOwner(
   // blob hash
   "b1674191a88ec5cdd733e4240a81803105dc412d6c6708d53ab94fc248f4f553",
   // pubkey
-  "266815e0c9210dfa324c6cba3573b14bee49da4209a9456f9484e5106cd408a5"
+  "266815e0c9210dfa324c6cba3573b14bee49da4209a9456f9484e5106cd408a5",
 );
 
 const blobs = await metadataStore.getOwnerBlobs(
-  "266815e0c9210dfa324c6cba3573b14bee49da4209a9456f9484e5106cd408a5"
+  "266815e0c9210dfa324c6cba3573b14bee49da4209a9456f9484e5106cd408a5",
 );
 
 const orphaned = await metadataStore.getOrphanedBlobs();

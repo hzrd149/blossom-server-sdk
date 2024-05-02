@@ -34,7 +34,7 @@ export class LocalStorage implements IBlobStorage {
   writeBlob(
     sha256: string,
     stream: Readable,
-    type?: string | undefined
+    type?: string | undefined,
   ): Promise<void> {
     return new Promise((res) => {
       const ext = type ? mime.getExtension(type) : null;
@@ -55,7 +55,7 @@ export class LocalStorage implements IBlobStorage {
     return stats.size;
   }
   getBlobType(
-    sha256: string
+    sha256: string,
   ): string | Promise<string | undefined> | undefined {
     const filename = this.getBlobFilename(sha256);
     if (!filename) throw new Error("Missing blob");

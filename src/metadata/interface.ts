@@ -1,5 +1,5 @@
 export type BlobMetadata = {
-  created: number;
+  uploaded: number;
   type?: string;
   sha256: string;
   size: number;
@@ -10,7 +10,7 @@ export interface IBlobMetadataStore {
   hasBlob(sha256: string): boolean | Promise<boolean>;
   getBlob(sha256: string): BlobMetadata | Promise<BlobMetadata>;
   addBlob(
-    data: Omit<BlobMetadata, "url">
+    data: Omit<BlobMetadata, "url">,
   ): BlobMetadata | Promise<BlobMetadata>;
   removeBlob(sha256: string): boolean | Promise<boolean>;
 
