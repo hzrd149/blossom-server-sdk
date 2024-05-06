@@ -1,6 +1,6 @@
 {
   "name": "blossom-server-sdk",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@changesets/cli": "^2.27.1",
-    "better-sqlite3": "^9.6.0",
+    "better-sqlite3": "^9.5.0",
     "debug": "^4.3.4",
     "mime": "^4.0.3",
     "minio": "^7.1.3",

@@ -65,7 +65,7 @@ export class S3Storage implements IBlobStorage {
   ): Promise<void> {
     const name = this.createObjectName(sha256, type);
     let size = 0;
-    await this.client.putObject(this.bucket, name, stream, {
+    await this.client.putObject(this.bucket, name, stream, undefined, {
       "x-amz-acl": "public-read",
       "Content-Type": type,
     });
