@@ -18,6 +18,7 @@ export interface IBlobMetadataStore {
   hasOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
   addOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
   removeOwner(sha256: string, pubkey: string): boolean | Promise<boolean>;
+  listOwners(sha256: string): string[] | Promise<string[]>
   getOwnerBlobs(pubkey: string): BlobMetadata[] | Promise<BlobMetadata[]>;
   getOrphanedBlobs(): BlobMetadata[] | Promise<BlobMetadata[]>;
 }

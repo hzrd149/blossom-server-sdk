@@ -149,6 +149,14 @@ export class BlossomSQLite implements IBlobMetadataStore {
   getAllOwners() {
     return this.db.prepare(`SELECT * FROM owners`).all();
   }
+  listOwners(sha256: string): string[] {
+    return this.db
+      .prepare<[string], { pubkey: string }>(
+        `SELECT pubkey FROM owners WHERE blob=?`,
+      )
+      .all(sha256)
+      .map((r) => r.pubkey);
+  }
   addOwner(sha256: string, pubkey: string) {
     if (!this.hasBlob(sha256)) return false;
 

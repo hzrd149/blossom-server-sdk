@@ -1,14 +1,20 @@
 # blossom-server-sdk
 
+## 0.5.0
+
+### Minor Changes
+
+- Add `listOwners` method to `IBlobMetadataStore` interface
+
 ## 0.4.0
 
 ### Minor Changes
 
-- bump better-sqlite3 to v11.1.2
+- bump `better-sqlite3` to v11.1.2
 
 ### Patch Changes
 
-- Fix @changesets/cli dependency
+- Remove `@changesets/cli` dependency
 
 ## 0.3.0
 
