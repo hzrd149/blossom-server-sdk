@@ -1,5 +1,12 @@
 # blossom-server-sdk
 
+## 0.6.0
+
+### Minor Changes
+
+- Add `listBlobs` method to IBlobStorage interface and classes
+- Upgrade to correct `minio` version `8.0.1`
+
 ## 0.5.0
 
 ### Minor Changes

@@ -25,6 +25,14 @@ export class LocalStorage implements IBlobStorage {
   async hasBlob(hash: string): Promise<boolean> {
     return this.files.some((name) => name.startsWith(hash));
   }
+  async listBlobs(): Promise<string[]> {
+    const hashes: string[] = [];
+    for (const file of this.files) {
+      const hash = file.match(/^[0-9a-f]{64}/)?.[0];
+      if (hash) hashes.push(hash);
+    }
+    return hashes;
+  }
   async readBlob(hash: string): Promise<Readable> {
     const file = this.getBlobFilename(hash);
     if (!file) throw new Error("Missing blob");
@@ -33,18 +41,26 @@ export class LocalStorage implements IBlobStorage {
   }
   writeBlob(
     sha256: string,
-    stream: Readable,
+    stream: Readable | Buffer,
     type?: string | undefined,
   ): Promise<void> {
     return new Promise((res) => {
       const ext = type ? mime.getExtension(type) : null;
       const filename = sha256 + (ext ? "." + ext : "");
       const filepath = path.join(this.dir, filename);
-      stream.pipe(fs.createWriteStream(filepath));
-      stream.on("end", async () => {
-        this.files.push(filename);
-        res();
-      });
+
+      if (stream instanceof Buffer) {
+        fs.writeFile(filepath, stream, () => {
+          this.files.push(filename);
+          res();
+        });
+      } else {
+        stream.pipe(fs.createWriteStream(filepath));
+        stream.on("end", async () => {
+          this.files.push(filename);
+          res();
+        });
+      }
     });
   }
   async getBlobSize(sha256: string): Promise<number> {

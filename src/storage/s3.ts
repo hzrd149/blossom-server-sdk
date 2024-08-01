@@ -1,6 +1,7 @@
-import { Client } from "minio";
 import { type Readable } from "node:stream";
+import { Client } from "minio";
 import mime from "mime";
+
 import { logger } from "../logger.js";
 import { IBlobStorage } from "./interface.js";
 
@@ -58,9 +59,17 @@ export class S3Storage implements IBlobStorage {
   async hasBlob(sha256: string): Promise<boolean> {
     return !!this.getBlobObject(sha256);
   }
+  async listBlobs(): Promise<string[]> {
+    const hashes: string[] = [];
+    for (const object of this.objects) {
+      const hash = object.name.match(/^[0-9a-f]{64}/)?.[0];
+      if (hash) hashes.push(hash);
+    }
+    return hashes;
+  }
   async writeBlob(
     sha256: string,
-    stream: Readable,
+    stream: Readable | Buffer,
     type?: string | undefined,
   ): Promise<void> {
     const name = this.createObjectName(sha256, type);
@@ -69,9 +78,15 @@ export class S3Storage implements IBlobStorage {
       "x-amz-acl": "public-read",
       "Content-Type": type,
     });
-    stream.on("data", (chunk: Buffer) => {
-      size += chunk.length;
-    });
+
+    if (stream instanceof Buffer) {
+      size = stream.length;
+    } else {
+      stream.on("data", (chunk: Buffer) => {
+        size += chunk.length;
+      });
+    }
+
     this.objects.push({
       name,
       size,

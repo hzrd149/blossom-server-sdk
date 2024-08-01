@@ -5,8 +5,14 @@ export interface IBlobStorage {
   setup(): Promise<void>;
   /** check if blob exists in storage */
   hasBlob(sha256: string): Promise<boolean>;
+  /** lists all hashes */
+  listBlobs(): Promise<string[]>;
   /** save blob */
-  writeBlob(sha256: string, stream: Readable, type?: string): Promise<void>;
+  writeBlob(
+    sha256: string,
+    stream: Readable | Buffer,
+    type?: string,
+  ): Promise<void>;
   /** get the size of the stored blob */
   getBlobSize(sha256: string): number | Promise<number>;
   /** get the MIME type of the blob if the storage knows it */
