@@ -5,6 +5,11 @@ import mime from "mime";
 import { logger } from "../logger.js";
 import { IBlobStorage } from "./interface.js";
 
+export interface S3StorageOptions {
+  region?: string;
+  useSSL?: boolean;
+};
+
 export class S3Storage implements IBlobStorage {
   log = logger.extend("storage:s3");
   client: Client;
@@ -19,11 +24,14 @@ export class S3Storage implements IBlobStorage {
     accessKey: string,
     secretKey: string,
     bucket: string,
+    options?: S3StorageOptions,
   ) {
     this.client = new Client({
       endPoint: endpoint,
       accessKey: accessKey,
       secretKey: secretKey,
+      region: options?.region,
+      useSSL: options?.useSSL,
     });
 
     this.bucket = bucket;
