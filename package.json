@@ -1,6 +1,6 @@
 {
   "name": "blossom-server-sdk",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

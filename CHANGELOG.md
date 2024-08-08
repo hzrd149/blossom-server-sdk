@@ -1,5 +1,11 @@
 # blossom-server-sdk
 
+## 0.7.0
+
+### Minor Changes
+
+- Add options to S3Storage class
+
 ## 0.6.0
 
 ### Minor Changes
