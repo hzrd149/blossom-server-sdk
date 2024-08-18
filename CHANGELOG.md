@@ -1,5 +1,11 @@
 # blossom-server-sdk
 
+## 0.7.2
+
+### Patch Changes
+
+- Fix typescript bug
+
 ## 0.7.1
 
 ### Patch Changes
