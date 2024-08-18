@@ -1,5 +1,11 @@
 # blossom-server-sdk
 
+## 0.7.1
+
+### Patch Changes
+
+- Allow all minio options for S3Storage class
+
 ## 0.7.0
 
 ### Minor Changes
