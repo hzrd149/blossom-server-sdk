@@ -33,7 +33,8 @@
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "docs": "typedoc src/index.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.1.2",
