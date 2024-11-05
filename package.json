@@ -17,21 +17,17 @@
       "default": "./lib/storage/index.js",
       "types": "./lib/storage/index.d.ts"
     },
-    "./storage/local": {
-      "default": "./lib/storage/local.js",
-      "types": "./lib/storage/local.d.ts"
-    },
-    "./storage/s3": {
-      "default": "./lib/storage/s3.js",
-      "types": "./lib/storage/s3.d.ts"
+    "./storage/*": {
+      "default": "./lib/storage/*.js",
+      "types": "./lib/storage/*.d.ts"
     },
     "./metadata": {
       "default": "./lib/metadata/index.js",
       "types": "./lib/metadata/index.d.ts"
     },
-    "./metadata/sqlite": {
-      "default": "./lib/metadata/sqlite.js",
-      "types": "./lib/metadata/sqlite.d.ts"
+    "./metadata/*": {
+      "default": "./lib/metadata/*.js",
+      "types": "./lib/metadata/*.d.ts"
     }
   },
   "scripts": {
@@ -54,5 +50,5 @@
     "typedoc": "^0.25.12",
     "typescript": "^5.4.3"
   },
-  "packageManager": "pnpm@9.6.0"
+  "packageManager": "pnpm@9.12.2"
 }
