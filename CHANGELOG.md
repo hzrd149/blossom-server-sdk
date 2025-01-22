@@ -1,5 +1,11 @@
 # blossom-server-sdk
 
+## 0.8.0
+
+### Minor Changes
+
+- a9bab53: Update to use list objects V2 endpoint for S3 storage
+
 ## 0.7.3
 
 ### Patch Changes
