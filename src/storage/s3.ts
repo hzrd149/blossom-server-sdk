@@ -1,4 +1,4 @@
-import { type Readable } from "node:stream";
+import { Readable } from "node:stream";
 import { Client, ClientOptions } from "minio";
 import mime from "mime";
 
@@ -38,13 +38,17 @@ export class S3Storage implements IBlobStorage {
 
   private loadObjects() {
     return new Promise<void>(async (res) => {
+      this.log(`Loading objects...`);
       this.objects = [];
-      const stream = await this.client.listObjects(this.bucket);
+      const stream = await this.client.listObjectsV2(this.bucket);
       stream.on("data", (object) => {
         if (object.name)
           this.objects.push({ name: object.name, size: object.size });
       });
-      stream.on("end", () => res());
+      stream.on("end", () => {
+        this.log(`Finished loading objects (${this.objects.length})`);
+        res();
+      });
     });
   }
   async setup() {
@@ -88,7 +92,7 @@ export class S3Storage implements IBlobStorage {
 
     if (stream instanceof Buffer) {
       size = stream.length;
-    } else {
+    } else if (stream instanceof Readable) {
       stream.on("data", (chunk: Buffer) => {
         size += chunk.length;
       });

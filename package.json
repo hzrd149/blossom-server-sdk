@@ -32,24 +32,24 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepare": "tsc",
+    "prepack": "tsc",
     "format": "prettier -w .",
     "docs": "typedoc src/index.ts"
   },
   "dependencies": {
-    "better-sqlite3": "^11.1.2",
-    "debug": "^4.3.6",
-    "mime": "^4.0.4",
-    "minio": "^8.0.1"
+    "better-sqlite3": "^11.8.1",
+    "debug": "^4.4.0",
+    "mime": "^4.0.6",
+    "minio": "^8.0.3"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.7",
-    "@types/better-sqlite3": "^7.6.11",
+    "@changesets/cli": "^2.27.11",
+    "@types/better-sqlite3": "^7.6.12",
     "@types/debug": "^4.1.12",
-    "@types/node": "^20.11.30",
-    "prettier": "^3.2.5",
-    "typedoc": "^0.25.12",
-    "typescript": "^5.4.3"
+    "@types/node": "^20.17.14",
+    "prettier": "^3.4.2",
+    "typedoc": "^0.25.13",
+    "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@9.12.2"
 }

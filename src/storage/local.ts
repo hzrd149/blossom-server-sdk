@@ -55,7 +55,7 @@ export class LocalStorage implements IBlobStorage {
           this.files.push(filename);
           res();
         });
-      } else {
+      } else if (stream instanceof Readable) {
         stream.pipe(fs.createWriteStream(filepath));
         stream.on("end", async () => {
           this.files.push(filename);
